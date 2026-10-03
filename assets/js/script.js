@@ -8,6 +8,8 @@ const searchClose = document.querySelector("#searchClose");
 const searchInput = document.querySelector("#searchInput");
 const searchForm = document.querySelector("#searchForm");
 const toast = document.querySelector("#toast");
+const loadMore = document.querySelector("#loadMore");
+const headerSearchInput = document.querySelector("#headerSearchInput");
 function openMenu() {
   sideMenu.classList.add("open");
   overlay.classList.add("show");
@@ -22,25 +24,25 @@ function closeSideMenu() {
   menuBtn.setAttribute("aria-expanded", "false");
   document.body.style.overflow = "";
 }
-menuBtn.addEventListener("click", openMenu);
-closeMenu.addEventListener("click", closeSideMenu);
-overlay.addEventListener("click", closeSideMenu);
+menuBtn?.addEventListener("click", openMenu);
+closeMenu?.addEventListener("click", closeSideMenu);
+overlay?.addEventListener("click", closeSideMenu);
 sideMenu
-  .querySelectorAll("a")
+  ?.querySelectorAll("a")
   .forEach((a) => a.addEventListener("click", closeSideMenu));
 function toggleSearch(show = true) {
   searchPanel.classList.toggle("show", show);
   if (show) setTimeout(() => searchInput.focus(), 250);
 }
-searchBtn.addEventListener("click", () => toggleSearch(true));
-searchClose.addEventListener("click", () => toggleSearch(false));
+searchBtn?.addEventListener("click", () => toggleSearch(true));
+searchClose?.addEventListener("click", () => toggleSearch(false));
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     closeSideMenu();
     toggleSearch(false);
   }
 });
-searchForm.addEventListener("submit", (e) => {
+searchForm?.addEventListener("submit", (e) => {
   e.preventDefault();
   const q = searchInput.value.trim();
   if (!q) return;
@@ -48,6 +50,15 @@ searchForm.addEventListener("submit", (e) => {
   toggleSearch(false);
   searchForm.reset();
 });
+if (headerSearchInput) {
+  headerSearchInput.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
+    const q = headerSearchInput.value.trim();
+    if (!q) return;
+    showToast(`Busca demonstrativa: “${q}”`);
+  });
+}
+
 const news = [
   [
     "23:42",
@@ -97,34 +108,52 @@ const news = [
 ];
 let visible = 5;
 const latestList = document.querySelector("#latestList");
-const loadMore = document.querySelector("#loadMore");
 function renderLatest() {
+  if (!latestList) return;
   latestList.innerHTML = news
     .slice(0, visible)
     .map(
       ([time, cat, title], i) =>
-        `<article class="latest-item"><div class="latest-thumb" style="filter:hue-rotate(${i * 22}deg)"></div><div><time>${time} • ${cat}</time><h3>${title}</h3><p>Confira os principais detalhes e entenda o contexto desta notícia demonstrativa.</p></div></article>`,
+        `<article class="card-destaque">
+          <div class="card-img-wrapper">
+            <img src="https://images.unsplash.com/photo-${1510000000000 + i * 10000}?auto=format&fit=crop&w=400&q=80" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=400&q=80'" alt="${cat}">
+          </div>
+          <div class="card-body">
+            <span class="badge badge-cyan">${cat}</span>
+            <h3>${title}</h3>
+            <p>Confira os principais detalhes e entenda o contexto desta notícia demonstrativa.</p>
+            <div class="gray-meta">
+              <span>🕒 ${time} &nbsp;•&nbsp; Hoje</span>
+            </div>
+          </div>
+        </article>`,
     )
     .join("");
-  if (visible >= news.length) loadMore.style.display = "none";
+  if (loadMore && visible >= news.length) loadMore.style.display = "none";
 }
-loadMore.addEventListener("click", () => {
-  visible += 3;
-  renderLatest();
-});
+if (loadMore) {
+  loadMore.addEventListener("click", () => {
+    visible += 3;
+    renderLatest();
+  });
+}
 renderLatest();
 function showToast(message) {
+  if (!toast) return;
   toast.textContent = message;
   toast.classList.add("show");
   clearTimeout(showToast.timer);
   showToast.timer = setTimeout(() => toast.classList.remove("show"), 3200);
 }
-document.querySelector("#newsletterForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const email = document.querySelector("#emailInput").value;
-  showToast(`Cadastro demonstrativo realizado para ${email}`);
-  e.target.reset();
-});
+const newsletterForm = document.querySelector("#newsletterForm");
+if (newsletterForm) {
+  newsletterForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.querySelector("#emailInput")?.value;
+    showToast(`Cadastro demonstrativo realizado para ${email}`);
+    e.target.reset();
+  });
+}
 document
   .querySelectorAll(".play")
   .forEach((btn) =>

@@ -29,6 +29,10 @@
   const info = (c) => CODIGOS[c] || ["⛅", "Tempo variável"];
   const el = (id) => document.getElementById(id);
   const graus = (n) => Math.round(n) + "°";
+  const setText = (id, value) => {
+    const node = el(id);
+    if (node) node.textContent = value;
+  };
 
   function nomeDia(iso, i) {
     if (i === 0) return "Hoje";
@@ -39,17 +43,17 @@
 
   function mostrar(d) {
     const [icone, desc] = info(d.current.weather_code);
-    el("climaIcone").textContent = icone;
-    el("climaTemp").textContent = graus(d.current.temperature_2m);
-    el("climaDesc").textContent = desc;
-    el("climaSensacao").textContent = graus(d.current.apparent_temperature);
-    el("climaUmidade").textContent =
-      Math.round(d.current.relative_humidity_2m) + "%";
-    el("climaVento").textContent =
-      Math.round(d.current.wind_speed_10m) + " km/h";
+    setText("climaIcone", icone);
+    setText("climaTemp", graus(d.current.temperature_2m));
+    setText("climaDesc", desc);
+    setText("climaSensacao", graus(d.current.apparent_temperature));
+    setText("climaUmidade", Math.round(d.current.relative_humidity_2m) + "%");
+    setText("climaVento", Math.round(d.current.wind_speed_10m) + " km/h");
 
     const dd = d.daily;
-    el("climaDias").innerHTML = dd.time
+    const diasEl = el("climaDias");
+    if (!diasEl) return;
+    diasEl.innerHTML = dd.time
       .slice(1, 4)
       .map((data, k) => {
         const i = k + 1;
@@ -79,11 +83,11 @@
   }
 
   function erro() {
-    el("climaDesc").textContent = "Previsão indisponível no momento";
-    el("climaTemp").textContent = "--°";
+    setText("climaDesc", "Previsão indisponível no momento");
+    setText("climaTemp", "--°");
   }
 
-  if (!el("clima")) return;
+  if (!el("clima") && !el("climaTemp")) return;
   fetch(URL)
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then(mostrar)

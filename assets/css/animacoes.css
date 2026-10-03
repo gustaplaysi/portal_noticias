@@ -1,0 +1,349 @@
+/* Correio Digital: animações de interação */
+:root {
+  --ease: cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+
+/* Abas de categoria: sublinhado que cresce */
+.nav-scroll a {
+  position: relative;
+  padding: 6px 0;
+  transition:
+    color 0.2s,
+    transform 0.2s var(--ease);
+}
+.nav-scroll a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: var(--sol);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+}
+.nav-scroll a:hover,
+.nav-scroll a:focus-visible {
+  transform: translateY(-1px);
+}
+.nav-scroll a:hover::after,
+.nav-scroll a:focus-visible::after {
+  transform: scaleX(1);
+}
+.nav-scroll a:active {
+  transform: scale(0.95);
+}
+
+/* Botão do menu: barras se afastam e viram um X quando abre */
+.icon-button span {
+  transition:
+    transform 0.3s var(--ease),
+    width 0.3s var(--ease),
+    opacity 0.2s;
+}
+.icon-button:hover span:nth-child(2) {
+  width: 16px;
+}
+.icon-button[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.icon-button[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.icon-button[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Menu lateral: itens entram em sequência e deslizam no hover */
+.side-menu nav a {
+  transition:
+    padding-left 0.25s var(--ease),
+    color 0.2s,
+    background 0.2s;
+}
+.side-menu nav a:hover {
+  padding-left: 14px;
+  color: var(--acento);
+  background: var(--superficie);
+}
+.side-menu.open nav a {
+  animation: entraMenu 0.45s var(--ease) both;
+}
+.side-menu.open nav a:nth-child(1) {
+  animation-delay: 0.08s;
+}
+.side-menu.open nav a:nth-child(2) {
+  animation-delay: 0.13s;
+}
+.side-menu.open nav a:nth-child(3) {
+  animation-delay: 0.18s;
+}
+.side-menu.open nav a:nth-child(4) {
+  animation-delay: 0.23s;
+}
+.side-menu.open nav a:nth-child(5) {
+  animation-delay: 0.28s;
+}
+.side-menu.open nav a:nth-child(6) {
+  animation-delay: 0.33s;
+}
+.side-menu.open nav a:nth-child(7) {
+  animation-delay: 0.38s;
+}
+.side-menu.open nav a:nth-child(8) {
+  animation-delay: 0.43s;
+}
+.side-menu-head button {
+  transition: transform 0.3s var(--ease);
+}
+.side-menu-head button:hover,
+.search-close:hover {
+  transform: rotate(90deg);
+}
+@keyframes entraMenu {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Busca e entrar */
+.search-button {
+  transition: transform 0.2s var(--ease);
+}
+.search-button:hover .search-icon {
+  animation: balanca 0.6s var(--ease);
+}
+.search-button:active,
+.login-button:active,
+.load-more:active,
+.newsletter button:active,
+.play:active {
+  transform: scale(0.94);
+}
+.login-button {
+  transition:
+    transform 0.2s var(--ease),
+    box-shadow 0.2s,
+    filter 0.2s;
+}
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--acento) 40%, transparent);
+  filter: brightness(1.08);
+}
+@keyframes balanca {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  30% {
+    transform: rotate(-18deg) scale(1.1);
+  }
+  60% {
+    transform: rotate(12deg) scale(1.1);
+  }
+}
+
+/* Cards de notícia, vídeo e regiões */
+.news-card,
+.compact-card,
+.video-card,
+.story-card,
+.region-card,
+.world-list > * {
+  transition:
+    transform 0.3s var(--ease),
+    box-shadow 0.3s;
+}
+.news-card:hover,
+.compact-card:hover,
+.video-card:hover,
+.story-card:hover {
+  transform: translateY(-5px);
+}
+.news-card .photo,
+.compact-card .photo,
+.video-card .photo,
+.hero-image {
+  transition:
+    filter 0.4s,
+    transform 0.4s var(--ease);
+}
+.news-card:hover .photo,
+.compact-card:hover .photo,
+.video-card:hover .photo {
+  filter: saturate(1.25) brightness(1.06);
+}
+.news-card h3,
+.compact-card h3,
+.video-card h3 {
+  transition: color 0.2s;
+}
+.news-card:hover h3,
+.compact-card:hover h3,
+.video-card:hover h3 {
+  color: var(--acento);
+}
+.region-card:hover {
+  transform: translateY(-6px) rotate(-0.6deg);
+  box-shadow: 0 14px 28px color-mix(in srgb, var(--tinta) 18%, transparent);
+}
+.region-card b {
+  display: inline-block;
+  transition: transform 0.25s var(--ease);
+}
+.region-card:hover b {
+  transform: translateX(6px);
+}
+
+/* Botão de play pulsa no hover */
+.play {
+  transition:
+    transform 0.25s var(--ease),
+    background 0.2s,
+    color 0.2s;
+}
+.video-card:hover .play,
+.play:hover {
+  transform: scale(1.12);
+  background: var(--sol);
+  color: var(--sobre-sol);
+}
+.play:hover {
+  animation: pulso 1s infinite;
+}
+@keyframes pulso {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--sol) 70%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 16px color-mix(in srgb, var(--sol) 0%, transparent);
+  }
+}
+
+/* Últimas notícias */
+.latest-item {
+  transition:
+    transform 0.25s var(--ease),
+    background 0.2s;
+  animation: surge 0.5s var(--ease) both;
+}
+.latest-item:hover {
+  transform: translateX(8px);
+  background: var(--superficie);
+}
+.latest-item:nth-child(2) {
+  animation-delay: 0.05s;
+}
+.latest-item:nth-child(3) {
+  animation-delay: 0.1s;
+}
+.latest-item:nth-child(4) {
+  animation-delay: 0.15s;
+}
+.latest-item:nth-child(5) {
+  animation-delay: 0.2s;
+}
+@keyframes surge {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.load-more {
+  transition:
+    background 0.2s,
+    color 0.2s,
+    transform 0.2s var(--ease);
+}
+.load-more:hover {
+  transform: translateY(-2px);
+}
+
+/* Clima */
+.clima-dias li {
+  transition:
+    background 0.25s,
+    transform 0.25s var(--ease);
+}
+.clima-dias li:hover {
+  background: color-mix(in srgb, var(--sobre-ceu) 14%, transparent);
+  transform: translateY(-3px);
+}
+.clima-dias .dia-icone {
+  transition: transform 0.3s var(--ease);
+}
+.clima-dias li:hover .dia-icone {
+  transform: scale(1.25) rotate(-6deg);
+}
+.clima-icone {
+  display: inline-block;
+  animation: flutua 3.5s ease-in-out infinite;
+}
+@keyframes flutua {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Links de rodapé, voltar e CMS */
+.footer-links a,
+.back-link,
+.category-aside a {
+  transition:
+    transform 0.2s var(--ease),
+    color 0.2s;
+  display: inline-block;
+}
+.footer-links a:hover,
+.category-aside a:hover {
+  transform: translateX(4px);
+}
+.back-link:hover {
+  transform: translateX(-4px);
+}
+
+/* Aparecer ao rolar (classes adicionadas pelo JS) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.6s var(--ease);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal.visible:hover {
+  transition:
+    transform 0.3s var(--ease),
+    box-shadow 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

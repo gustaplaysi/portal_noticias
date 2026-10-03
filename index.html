@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Correio Digital: notícias do Brasil e do mundo."
+    />
+    <title>Correio Digital</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&family=Literata:opsz,wght@7..72,400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230C2B33'/%3E%3Ccircle cx='16' cy='20' r='9' fill='%23FFD21F'/%3E%3Crect y='20' width='32' height='12' fill='%230C2B33'/%3E%3Crect y='20' width='32' height='3' fill='%23F3FBFA'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="assets/css/identidade.css" />
+    <link rel="stylesheet" href="assets/css/animacoes.css" />
+    <script src="assets/js/edicao.js"></script>
+  </head>
+  <body>
+    <div class="demo-bar">Projeto de estudo em HTML, CSS e JavaScript.</div>
+
+    <header class="site-header">
+      <div class="topbar container">
+        <button
+          class="icon-button"
+          id="menuBtn"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+
+        <a class="brand" href="index.html" aria-label="Página inicial">
+          <span class="brand-mark" aria-hidden="true"></span
+          ><span class="brand-word">correio<b>digital</b></span>
+        </a>
+
+        <div class="header-actions">
+          <button class="search-button" id="searchBtn" aria-label="Pesquisar">
+            <span class="search-icon"></span>
+            <span class="desktop-only">Buscar</span>
+          </button>
+          <a class="login-button" id="loginLink" href="pages/conta/login.html"
+            >Entrar</a
+          >
+        </div>
+      </div>
+
+      <nav class="category-nav" aria-label="Categorias principais">
+        <div class="container nav-scroll">
+          <a href="index.html#ultimas">Últimas</a>
+          <a href="pages/landing-pages/brasil.html">Brasil</a
+          ><a href="pages/regioes/regioes.html">Regiões</a>
+          <a href="pages/landing-pages/economia.html">Economia</a>
+          <a href="pages/landing-pages/mundo.html">Mundo</a>
+          <a href="pages/landing-pages/saude.html">Saúde</a>
+          <a href="pages/landing-pages/tecnologia.html">Tecnologia</a>
+          <a href="pages/landing-pages/esportes.html">Esportes</a>
+          <a href="pages/landing-pages/entretenimento.html">Entretenimento</a>
+        </div>
+      </nav>
+    </header>
+
+    <aside class="side-menu" id="sideMenu" aria-hidden="true">
+      <div class="side-menu-head">
+        <strong>Menu</strong>
+        <button id="closeMenu" aria-label="Fechar menu">×</button>
+      </div>
+      <nav>
+        <a href="index.html#ultimas">Últimas notícias</a>
+        <a href="pages/landing-pages/brasil.html">Brasil</a
+        ><a href="pages/regioes/regioes.html">Regiões</a>
+        <a href="pages/landing-pages/economia.html">Economia</a>
+        <a href="pages/landing-pages/mundo.html">Mundo</a>
+        <a href="pages/landing-pages/saude.html">Saúde</a>
+        <a href="pages/landing-pages/tecnologia.html">Tecnologia e Ciência</a>
+        <a href="pages/landing-pages/esportes.html">Esportes</a>
+        <a href="pages/landing-pages/entretenimento.html">Entretenimento</a>
+      </nav>
+    </aside>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="search-panel" id="searchPanel">
+      <div class="container search-inner">
+        <form id="searchForm">
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Busque uma notícia..."
+            autocomplete="off"
+          />
+          <button type="submit">Pesquisar</button>
+        </form>
+        <button
+          class="search-close"
+          id="searchClose"
+          aria-label="Fechar pesquisa"
+        >
+          ×
+        </button>
+      </div>
+    </div>
+
+    <main>
+      <section
+        class="clima container"
+        id="clima"
+        aria-label="Previsão do tempo em Fortaleza, Ceará"
+      >
+        <div class="clima-agora">
+          <p class="clima-local">Previsão do tempo · Fortaleza, CE</p>
+          <div class="clima-principal">
+            <span class="clima-icone" id="climaIcone" aria-hidden="true"
+              >⛅</span
+            >
+            <span class="clima-temp" id="climaTemp">--°</span>
+            <span class="clima-desc" id="climaDesc">Carregando…</span>
+          </div>
+          <ul class="clima-detalhes">
+            <li>Sensação <b id="climaSensacao">--°</b></li>
+            <li>Umidade <b id="climaUmidade">--%</b></li>
+            <li>Vento <b id="climaVento">-- km/h</b></li>
+          </ul>
+        </div>
+        <ol class="clima-dias" id="climaDias" aria-label="Próximos dias"></ol>
+      </section>
+
+      <section class="breaking container">
+        <span class="breaking-label">AGORA</span>
+        <div class="ticker-window">
+          <div class="ticker" id="ticker">
+            <span
+              >Mercados iniciam o dia atentos aos novos indicadores
+              econômicos</span
+            >
+            <span>Capitais ampliam serviços digitais para moradores</span>
+            <span>Pesquisa brasileira avança em tecnologia sustentável</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="hero container" id="ultimas">
+        <article class="hero-main">
+          <div class="hero-copy">
+            <p>Brasil</p>
+            <h1>
+              Novas iniciativas urbanas buscam melhorar mobilidade e qualidade
+              de vida
+            </h1>
+            <span
+              >Projetos unem tecnologia, transporte e planejamento em grandes
+              cidades</span
+            >
+          </div>
+          <div class="hero-figura">
+            <div
+              class="hero-image photo photo-city"
+              role="img"
+              aria-label="Vista de uma grande cidade"
+            ></div>
+          </div>
+        </article>
+
+        <div class="hero-side">
+          <article class="story-card feature-card">
+            <div class="photo photo-market"></div>
+            <span class="eyebrow">ECONOMIA</span>
+            <h2>
+              Empresas aceleram investimentos e acompanham mudanças no consumo
+            </h2>
+          </article>
+          <article class="story-card feature-card">
+            <div class="photo photo-tech"></div>
+            <span class="eyebrow">TECNOLOGIA</span>
+            <h2>
+              Ferramentas de inteligência artificial ganham espaço no cotidiano
+            </h2>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section container" id="brasil">
+        <div class="section-heading">
+          <h2>Brasil</h2>
+          <a href="pages/landing-pages/brasil.html">Ver mais <span>›</span></a>
+        </div>
+        <div class="news-grid three">
+          <article class="news-card">
+            <div class="photo photo-road"></div>
+            <span class="eyebrow">CIDADES</span>
+            <h3>
+              Obras de infraestrutura avançam em diferentes regiões do país
+            </h3>
+            <p>
+              Projetos priorizam transporte, segurança viária e serviços
+              públicos.
+            </p>
+          </article>
+          <article class="news-card">
+            <div class="photo photo-school"></div>
+            <span class="eyebrow">EDUCAÇÃO</span>
+            <h3>Escolas adotam novas ferramentas para apoiar aprendizagem</h3>
+            <p>
+              Recursos digitais passam a complementar atividades em sala de
+              aula.
+            </p>
+          </article>
+          <article class="news-card">
+            <div class="photo photo-rain"></div>
+            <span class="eyebrow">TEMPO</span>
+            <h3>
+              Frente fria muda o tempo e aumenta chance de chuva em parte do
+              país
+            </h3>
+            <p>
+              Especialistas recomendam acompanhar os alertas meteorológicos
+              locais.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="dark-section" id="internacional">
+        <div class="container">
+          <div class="section-heading light">
+            <h2>Mundo</h2>
+            <a href="pages/landing-pages/mundo.html">Ver mais <span>›</span></a>
+          </div>
+          <div class="world-layout">
+            <article class="world-main">
+              <div class="photo photo-world"></div>
+              <span class="eyebrow">INTERNACIONAL</span>
+              <h2>
+                Líderes se reúnem para discutir economia, tecnologia e desafios
+                globais
+              </h2>
+              <p>
+                Encontro reúne representantes de diversos países em uma agenda
+                de cooperação.
+              </p>
+            </article>
+            <div class="world-list">
+              <article>
+                <span>MEIO AMBIENTE</span>
+                <h3>Países anunciam novos projetos de energia limpa</h3>
+              </article>
+              <article>
+                <span>CIÊNCIA</span>
+                <h3>Missão espacial prepara nova etapa de pesquisas</h3>
+              </article>
+              <article>
+                <span>NEGÓCIOS</span>
+                <h3>
+                  Setor de tecnologia movimenta investimentos internacionais
+                </h3>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section container" id="economia">
+        <div class="section-heading">
+          <h2>Economia</h2>
+          <a href="pages/landing-pages/economia.html"
+            >Ver mais <span>›</span></a
+          >
+        </div>
+        <div class="split-layout">
+          <article class="wide-story">
+            <div class="photo photo-finance"></div>
+            <div>
+              <span class="eyebrow">SEU DINHEIRO</span>
+              <h2>
+                Planejamento financeiro ganha importância diante de novas opções
+                digitais
+              </h2>
+              <p>
+                Especialistas destacam organização, reserva de emergência e
+                comparação de custos.
+              </p>
+            </div>
+          </article>
+          <div class="mini-list">
+            <article>
+              <div class="photo photo-office"></div>
+              <div>
+                <span>CARREIRA</span>
+                <h3>Mercado busca profissionais com novas habilidades</h3>
+              </div>
+            </article>
+            <article>
+              <div class="photo photo-shop"></div>
+              <div>
+                <span>CONSUMO</span>
+                <h3>
+                  Comércio aposta em experiências integradas entre lojas e
+                  internet
+                </h3>
+              </div>
+            </article>
+            <article>
+              <div class="photo photo-home"></div>
+              <div>
+                <span>IMÓVEIS</span>
+                <h3>Tecnologia muda a forma de pesquisar e escolher imóveis</h3>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="video-section">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Vídeos</h2>
+            <a href="#">Todos os vídeos <span>›</span></a>
+          </div>
+          <div class="video-grid">
+            <article class="video-card">
+              <div class="photo photo-video1">
+                <button class="play" aria-label="Reproduzir vídeo">▶</button>
+              </div>
+              <h3>Veja os principais assuntos que movimentam o dia</h3>
+            </article>
+            <article class="video-card">
+              <div class="photo photo-video2">
+                <button class="play" aria-label="Reproduzir vídeo">▶</button>
+              </div>
+              <h3>Entenda como novas tecnologias estão mudando as cidades</h3>
+            </article>
+            <article class="video-card">
+              <div class="photo photo-video3">
+                <button class="play" aria-label="Reproduzir vídeo">▶</button>
+              </div>
+              <h3>Especialistas explicam tendências para os próximos meses</h3>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section container" id="saude">
+        <div class="section-heading">
+          <h2>Saúde</h2>
+          <a href="pages/landing-pages/saude.html">Ver mais <span>›</span></a>
+        </div>
+        <div class="news-grid three">
+          <article class="news-card">
+            <div class="photo photo-health"></div>
+            <span class="eyebrow">BEM-ESTAR</span>
+            <h3>
+              Hábitos simples podem contribuir para uma rotina mais equilibrada
+            </h3>
+          </article>
+          <article class="news-card">
+            <div class="photo photo-food"></div>
+            <span class="eyebrow">ALIMENTAÇÃO</span>
+            <h3>Variedade no prato é aliada de uma alimentação equilibrada</h3>
+          </article>
+          <article class="news-card">
+            <div class="photo photo-running"></div>
+            <span class="eyebrow">ATIVIDADE FÍSICA</span>
+            <h3>Movimento regular ajuda a manter disposição no dia a dia</h3>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section container" id="tecnologia">
+        <div class="section-heading">
+          <h2>Tecnologia e Ciência</h2>
+          <a href="pages/landing-pages/tecnologia.html"
+            >Ver mais <span>›</span></a
+          >
+        </div>
+        <div class="news-grid four">
+          <article class="compact-card">
+            <div class="photo photo-phone"></div>
+            <span>TECNOLOGIA</span>
+            <h3>
+              Novos dispositivos apostam em integração com inteligência
+              artificial
+            </h3>
+          </article>
+          <article class="compact-card">
+            <div class="photo photo-space"></div>
+            <span>ESPAÇO</span>
+            <h3>Telescópios ajudam cientistas a observar regiões distantes</h3>
+          </article>
+          <article class="compact-card">
+            <div class="photo photo-lab"></div>
+            <span>CIÊNCIA</span>
+            <h3>Laboratórios ampliam pesquisas com materiais sustentáveis</h3>
+          </article>
+          <article class="compact-card">
+            <div class="photo photo-cyber"></div>
+            <span>SEGURANÇA</span>
+            <h3>
+              Proteção de dados exige atenção crescente de usuários e empresas
+            </h3>
+          </article>
+        </div>
+      </section>
+
+      <section class="newsletter">
+        <div class="container newsletter-inner">
+          <div>
+            <span class="eyebrow">NEWSLETTER</span>
+            <h2>As notícias mais importantes no seu e-mail</h2>
+            <p>Cadastre-se para receber um resumo demonstrativo.</p>
+          </div>
+          <form id="newsletterForm">
+            <input
+              id="emailInput"
+              type="email"
+              placeholder="Seu melhor e-mail"
+              required
+            /><button type="submit">Cadastrar</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="content-section container latest-section">
+        <div class="section-heading"><h2>Últimas notícias</h2></div>
+        <div id="latestList" class="latest-list"></div>
+        <button class="load-more" id="loadMore">Carregar mais notícias</button>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-top">
+        <a class="brand footer-brand" href="index.html"
+          ><span class="brand-mark" aria-hidden="true"></span
+          ><span class="brand-word">correio<b>digital</b></span></a
+        >
+        <div class="footer-links">
+          <a href="#">Notícias</a><a href="#">Economia</a><a href="#">Saúde</a
+          ><a href="#">Tecnologia</a><a href="#">Esportes</a>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>Projeto de estudo em HTML, CSS e JavaScript.</p>
+        <p>© 2026 Projeto demonstrativo</p>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status"></div>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/clima.js"></script>
+    <script src="assets/js/animacoes.js"></script>
+  </body>
+</html>

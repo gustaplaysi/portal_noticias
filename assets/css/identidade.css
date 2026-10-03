@@ -1,0 +1,180 @@
+/* Correio Digital · identidade "Edição do dia"
+   Conceito: o jornal tem uma edição para cada hora. As cores, o sol e o céu mudam
+   com o horário de Fortaleza (madrugada, manhã, tarde, noite) e dá para trocar na régua do topo.
+   Marca: um sol sobre o horizonte. Tipografia: Schibsted Grotesk (títulos) + Literata (texto). */
+
+:root {
+  --f-titulo: "Schibsted Grotesk", system-ui, sans-serif;
+  --f-texto: "Literata", Georgia, serif;
+  --sol-pos: 0px;
+  /* tarde (padrão) */
+  --fundo: #f3fbfa; --superficie: #ddf3f0; --tinta: #0c2b33; --suave: #4b6a70;
+  --linha: #b9ddd8; --sol: #ffd21f; --sobre-sol: #0c2b33; --acento: #00717f;
+  --sobre-acento: #fff; --bloco: #0c2b33; --sobre-bloco: #f3fbfa; --tom: #bff0ea;
+  --ceu: linear-gradient(180deg, #6fd0e6, #e6faf6); --sobre-ceu: #0c2b33;
+}
+[data-edicao="manha"] {
+  --sol-pos: -15px;
+  --fundo: #fff4f0; --superficie: #fbe3ea; --tinta: #2a1b3d; --suave: #6a5a7a;
+  --linha: #ecd0d9; --sol: #ffb020; --sobre-sol: #2a1b3d; --acento: #b3134f;
+  --bloco: #2a1b3d; --sobre-bloco: #fff4f0; --tom: #ffc9d6;
+  --ceu: linear-gradient(180deg, #ffd29c, #ffb3c7); --sobre-ceu: #2a1b3d;
+}
+[data-edicao="noite"] {
+  --sol-pos: -21px;
+  --fundo: #1d1233; --superficie: #2b1b47; --tinta: #f4eafb; --suave: #b7a6cc;
+  --linha: #3d2c5e; --sol: #ff7a45; --sobre-sol: #1d1233; --acento: #ff9a66;
+  --sobre-acento: #1d1233; --bloco: #120a22; --sobre-bloco: #f4eafb; --tom: #ff9f7a;
+  --ceu: linear-gradient(180deg, #5b2a86, #d9534f 135%); --sobre-ceu: #fff;
+}
+[data-edicao="madrugada"] {
+  --sol-pos: 0px;
+  --fundo: #0b1530; --superficie: #14234a; --tinta: #e8eeff; --suave: #9db0dd;
+  --linha: #263a6a; --sol: #f1ecc8; --sobre-sol: #0b1530; --acento: #8fb4ff;
+  --sobre-acento: #0b1530; --bloco: #060c1f; --sobre-bloco: #e8eeff; --tom: #9db8ff;
+  --ceu: linear-gradient(180deg, #060c1f, #24418a); --sobre-ceu: #fff;
+}
+/* nomes antigos usados por style.css e admin.css */
+:root { --red: var(--acento); --dark: var(--tinta); --muted: var(--suave); --line: var(--linha); --soft: var(--superficie); }
+
+body { font-family: var(--f-texto); font-size: 17px; line-height: 1.5; background: var(--fundo); color: var(--tinta); transition: background 0.6s, color 0.6s; }
+button, input, select, textarea, h1, h2, h3, time, .eyebrow, .tag, .nav-scroll a, .side-menu, .breaking, .demo-bar,
+.footer-links, .footer-bottom, .clima, .newsletter, .toast, .cms, .auth-card label, .regua, .back-link,
+.section-heading a, .category-aside strong, .category-aside a, .category-mast p, .region-card b, .hero-copy p { font-family: var(--f-titulo); }
+:focus-visible { outline: 3px solid var(--acento); outline-offset: 2px; }
+
+/* Marca: sol sobre o horizonte (a altura do sol muda com a edição) */
+.brand { gap: 11px; color: var(--tinta); }
+.brand-mark { position: relative; width: 36px; height: 36px; flex: none; overflow: hidden; background: none; mask: none; -webkit-mask: none; }
+.brand-mark::before { content: ""; position: absolute; left: 5px; right: 5px; bottom: calc(8px + var(--sol-pos)); aspect-ratio: 1; border-radius: 50%; background: var(--sol); transition: bottom 1.1s cubic-bezier(0.22, 0.8, 0.3, 1), background 0.6s; }
+.brand-mark::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: linear-gradient(180deg, var(--tinta) 0 3px, var(--fundo) 3px); }
+.brand-word { font: 800 26px/1 var(--f-titulo); letter-spacing: -0.045em; }
+.brand-word b { font-weight: 400; }
+.footer-brand { color: var(--sobre-bloco); }
+.footer-brand .brand-mark::after { background: linear-gradient(180deg, var(--sobre-bloco) 0 3px, var(--bloco) 3px); }
+
+/* Régua do dia (criada por edicao.js) */
+.demo-bar { background: var(--bloco); color: var(--sobre-bloco); opacity: 0.92; }
+.regua { display: flex; align-items: center; gap: 18px; background: var(--superficie); padding: 6px max(20px, calc((100% - 1180px) / 2)); font: 600 13px var(--f-titulo); }
+.regua-nome { font-weight: 800; white-space: nowrap; }
+.regua-trilho { position: relative; flex: 1; height: 6px; border-radius: 3px; background: linear-gradient(90deg, #14234a 0 20.8%, #ffb3c7 20.8% 50%, #7fd6e8 50% 75%, #5b2a86 75%); }
+.regua-sol { position: absolute; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--sol); border: 2px solid var(--tinta); }
+.regua-botoes { display: flex; gap: 4px; }
+.regua-botoes button { border: 0; background: none; color: var(--suave); padding: 3px 10px; border-radius: 99px; cursor: pointer; font: inherit; transition: background 0.2s, color 0.2s; }
+.regua-botoes button:hover { color: var(--tinta); }
+.regua-botoes button[aria-pressed="true"] { background: var(--tinta); color: var(--fundo); }
+
+/* Cabeçalho */
+.site-header, .side-menu, .search-panel { background: var(--fundo); color: var(--tinta); transition: background 0.6s; }
+.site-header { box-shadow: none; border-bottom: 2px solid var(--tinta); }
+.category-nav { border-color: var(--linha); }
+.icon-button span { background: var(--tinta); }
+.nav-scroll a { font-size: 15px; font-weight: 600; }
+.search-icon, .search-icon:after { border-color: var(--tinta); }
+.search-icon:after { background: var(--tinta); }
+.search-button { color: var(--tinta); }
+.login-button, .search-inner form button, .primary-btn, .load-more { border-radius: 99px; }
+.login-button, .search-inner form button, .primary-btn { background: var(--acento); color: var(--sobre-acento); }
+.search-inner input, .auth-card input, .modal input, .modal select, .modal textarea, .panel-head input { background: var(--fundo); color: var(--tinta); border-color: var(--linha); }
+.side-menu-head, .side-menu nav a { border-color: var(--linha); }
+
+/* Rótulos em frases normais (sem caixa-alta) */
+.eyebrow, .tag, .breaking-label, .compact-card span, .world-list span, .mini-list span, .region-card span, .hero-copy p, .category-mast p { display: block; text-transform: lowercase; letter-spacing: 0; font-size: 14px; font-weight: 700; }
+:is(.eyebrow, .tag, .breaking-label, .compact-card span, .world-list span, .mini-list span, .region-card span, .hero-copy p, .category-mast p)::first-letter { text-transform: uppercase; }
+.eyebrow, .compact-card span, .mini-list span, .region-card span, .latest-item time, .category-aside a, .section-heading a { color: var(--acento); }
+.breaking { border-color: var(--linha); }
+.breaking-label { background: var(--sol); color: var(--sobre-sol); padding: 6px 12px; border-radius: 99px; }
+
+/* Imagens ganham o tom da edição */
+.photo { background-color: var(--tom); background-blend-mode: multiply; }
+.photo:after { background: linear-gradient(0deg, color-mix(in srgb, var(--tinta) 35%, transparent), transparent 55%); }
+img { filter: saturate(0.85); }
+.photo, .feature-card .photo, .news-card .photo, .video-card .photo, .compact-card .photo, .category-card img, .category-hero img, .latest-real-thumb { border-radius: 0; }
+
+/* O momento marcante: a capa em arco, como o caminho do sol */
+.hero { grid-template-columns: 1fr; gap: 36px; }
+.hero-main { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 48px; align-items: center; }
+.hero-copy { position: static; color: var(--tinta); padding: 0; max-width: none; }
+.hero-copy p { color: var(--acento); margin: 0 0 14px; font-size: 16px; }
+.hero-copy h1 { font-size: clamp(34px, 5.2vw, 62px); font-weight: 800; line-height: 1; letter-spacing: -0.04em; margin: 0 0 20px; }
+.hero-copy span { font: 400 20px/1.5 var(--f-texto); color: var(--suave); }
+.hero-figura { position: relative; }
+.hero-figura:before { content: ""; position: absolute; z-index: 0; width: 38%; aspect-ratio: 1; right: -9%; top: -7%; border-radius: 50%; background: var(--sol); transition: background 0.6s; }
+.hero-image { position: relative; z-index: 1; min-height: 0; height: clamp(300px, 34vw, 420px); border-radius: 999px 999px 0 0; }
+.hero-image:after { background: none; }
+.hero-side { grid-template-columns: 1fr 1fr; grid-template-rows: auto; gap: 36px; border-top: 2px solid var(--tinta); padding-top: 28px; }
+.feature-card { display: grid; grid-template-columns: 150px 1fr; gap: 18px; align-items: start; }
+.feature-card .photo { grid-row: span 2; height: 110px; }
+.feature-card .eyebrow { margin: 0; }
+.feature-card h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; }
+
+/* Seções */
+.section-heading { border-bottom: 2px solid var(--tinta); }
+.section-heading h2 { font-size: 30px; font-weight: 800; letter-spacing: -0.04em; }
+.section-heading h2:before { width: 22px; height: 11px; border-radius: 22px 22px 0 0; background: var(--sol); margin-right: 12px; vertical-align: 1px; }
+.news-card h3, .compact-card h3, .mini-list h3, .latest-item h3, .world-list h3, .wide-story h2, .world-main h2, .category-card h3 { font-weight: 700; letter-spacing: -0.02em; }
+.news-card p, .latest-item p, .wide-story p, .category-card p, .world-main p { font-family: var(--f-texto); font-size: 16px; line-height: 1.6; color: var(--suave); }
+.mini-list article, .latest-item, .world-list article { border-color: var(--linha); }
+.latest-item time { font-size: 13px; font-weight: 700; }
+.load-more { background: none; border: 2px solid var(--tinta); color: var(--tinta); }
+.load-more:hover { background: var(--tinta); color: var(--fundo); }
+
+/* Blocos fortes, sol e céu */
+.dark-section, footer { background: var(--bloco); color: var(--sobre-bloco); }
+.section-heading.light { border-color: var(--sobre-bloco); }
+.section-heading.light a, .world-main p { color: color-mix(in srgb, var(--sobre-bloco) 72%, transparent); }
+.dark-section .eyebrow, .world-list span { color: var(--sol); }
+.dark-section :focus-visible, footer :focus-visible { outline-color: var(--sol); }
+.footer-top, .world-list article { border-color: color-mix(in srgb, var(--sobre-bloco) 25%, transparent); }
+.footer-bottom { color: color-mix(in srgb, var(--sobre-bloco) 65%, transparent); }
+.video-section, .regions-note, .category-aside, .demo-credentials { background: var(--superficie); border-radius: 0; }
+.play { color: var(--sobre-sol); background: var(--sol); }
+.newsletter { background: var(--sol); color: var(--sobre-sol); }
+.newsletter .eyebrow, .newsletter p { color: var(--sobre-sol); }
+.newsletter button { background: var(--sobre-sol); color: var(--sol); border-radius: 0 99px 99px 0; }
+.newsletter input { border-radius: 99px 0 0 99px; }
+.clima { background: var(--ceu); color: var(--sobre-ceu); border-radius: 0 0 0 80px; transition: color 0.6s; }
+.clima-local { color: inherit; opacity: 0.85; font-size: 14px; letter-spacing: 0; text-transform: none; }
+.clima-temp { font-size: 68px; font-weight: 800; letter-spacing: -0.05em; }
+.clima-dias { background: color-mix(in srgb, var(--sobre-ceu) 9%, transparent); }
+.clima-dias li { border-color: color-mix(in srgb, var(--sobre-ceu) 22%, transparent); }
+.clima-dias .dia-nome { text-transform: capitalize; letter-spacing: 0; font-size: 14px; }
+
+/* Categorias, regiões, conta e CMS */
+.category-mast { border-color: var(--tinta); }
+.category-mast h1 { font-size: clamp(40px, 7vw, 72px); font-weight: 800; line-height: 1; letter-spacing: -0.045em; }
+.category-mast span, .category-aside p { color: var(--suave); }
+.category-hero-copy { background: linear-gradient(transparent, color-mix(in srgb, var(--bloco) 85%, transparent)); }
+.category-hero-copy .eyebrow { color: var(--sol); }
+.category-aside { border-top: 6px solid var(--sol); }
+.region-card { background: var(--superficie); color: var(--tinta); border: 0; border-radius: 120px 120px 0 0; box-shadow: none; padding-top: 48px; text-align: center; }
+.region-card p { color: var(--suave); }
+.region-card:hover { box-shadow: none; }
+.region-card b { color: var(--acento); }
+.auth-page, .admin-page { background: var(--fundo); color: var(--tinta); }
+.auth-card, .cms-stats div, .cms-panel, .modal-card, .post-actions button, .secondary-btn { background: var(--superficie); color: var(--tinta); border: 0; border-radius: 0; box-shadow: none; }
+.auth-brand .brand-word { font-size: 25px; }
+.auth-brand .brand-mark { font-size: 0; }
+.demo-credentials { border-left: 4px solid var(--sol); }
+.cms-sidebar { background: var(--bloco); }
+.post-status { color: #1d2b22; }
+.toast { background: var(--tinta); color: var(--fundo); border-radius: 99px; }
+.side-menu:not(.open) { box-shadow: none; visibility: hidden; }
+.side-menu { transition: left 0.28s, visibility 0s linear 0.28s, background 0.6s; }
+.side-menu.open { visibility: visible; transition: left 0.28s, background 0.6s; }
+
+@media (max-width: 900px) {
+  .hero-main { grid-template-columns: 1fr; gap: 36px; }
+  .hero-figura { max-width: 420px; }
+  .hero-side { grid-template-columns: 1fr; }
+  .regua-trilho { display: none; }
+  .regua { justify-content: space-between; gap: 8px; padding-inline: 14px; }
+}
+@media (max-width: 600px) {
+  .brand-word { font-size: 22px; }
+  .regua-nome { display: none; }
+  .regua-botoes button { padding: 3px 7px; }
+  .feature-card { grid-template-columns: 110px 1fr; }
+  .clima { border-radius: 0 0 0 48px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .ticker { animation: none; } body, .brand-mark::before { transition: none; } }

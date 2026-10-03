@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Tecnologia — portal de notícias demonstrativo"
+    />
+    <title>Tecnologia — Correio Digital</title>
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&family=Literata:opsz,wght@7..72,400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230C2B33'/%3E%3Ccircle cx='16' cy='20' r='9' fill='%23FFD21F'/%3E%3Crect y='20' width='32' height='12' fill='%230C2B33'/%3E%3Crect y='20' width='32' height='3' fill='%23F3FBFA'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="../../assets/css/identidade.css" />
+    <link rel="stylesheet" href="../../assets/css/animacoes.css" />
+    <script src="../../assets/js/edicao.js"></script>
+  </head>
+  <body data-category="Tecnologia">
+    <div class="demo-bar">Projeto de estudo em HTML, CSS e JavaScript.</div>
+    <header class="site-header">
+      <div class="topbar container">
+        <button class="icon-button" id="menuBtn" aria-label="Abrir menu">
+          <span></span><span></span><span></span></button
+        ><a class="brand" href="../../index.html"
+          ><span class="brand-mark" aria-hidden="true"></span
+          ><span class="brand-word">correio<b>digital</b></span></a
+        >
+        <div class="header-actions">
+          <a class="login-button" id="loginLink" href="../conta/login.html"
+            >Entrar</a
+          >
+        </div>
+      </div>
+      <nav class="category-nav">
+        <div class="container nav-scroll">
+          <a href="../../index.html">Home</a><a href="brasil.html">Brasil</a
+          ><a href="../regioes/regioes.html">Regiões</a
+          ><a href="mundo.html">Mundo</a><a href="economia.html">Economia</a
+          ><a href="esportes.html">Esportes</a
+          ><a href="entretenimento.html">Entretenimento</a
+          ><a href="tecnologia.html">Tecnologia</a
+          ><a href="saude.html">Saúde</a>
+        </div>
+      </nav>
+    </header>
+    <aside class="side-menu" id="sideMenu">
+      <div class="side-menu-head">
+        <strong>Menu</strong><button id="closeMenu">×</button>
+      </div>
+      <nav>
+        <a href="../../index.html">Home</a><a href="brasil.html">Brasil</a
+        ><a href="../regioes/regioes.html">Regiões</a
+        ><a href="mundo.html">Mundo</a><a href="economia.html">Economia</a
+        ><a href="esportes.html">Esportes</a
+        ><a href="entretenimento.html">Entretenimento</a
+        ><a href="tecnologia.html">Tecnologia</a><a href="saude.html">Saúde</a>
+      </nav>
+    </aside>
+    <div class="overlay" id="overlay"></div>
+    <main>
+      <section class="category-mast container">
+        <p>Correio Digital</p>
+        <h1>Tecnologia</h1>
+        <span
+          >Notícias, destaques e atualizações da editoria de Tecnologia.</span
+        >
+      </section>
+      <section class="container category-feature">
+        <div id="categoryHero"></div>
+        <aside class="category-aside">
+          <strong>Em destaque</strong>
+          <p>
+            Conteúdo desta página é atualizado pelas notícias publicadas no CMS
+            na categoria Tecnologia.
+          </p>
+          <a href="../admin/cms-admin.html">Abrir CMS Admin →</a>
+        </aside>
+      </section>
+      <section class="content-section container">
+        <div class="section-heading"><h2>Mais notícias</h2></div>
+        <div class="news-grid three" id="categoryGrid"></div>
+      </section>
+      <section class="content-section container latest-section">
+        <div class="section-heading"><h2>Últimas de Tecnologia</h2></div>
+        <div id="categoryLatest" class="latest-list"></div>
+      </section>
+    </main>
+    <footer>
+      <div class="container footer-top">
+        <a class="brand footer-brand" href="../../index.html"
+          ><span class="brand-mark" aria-hidden="true"></span
+          ><span class="brand-word">correio<b>digital</b></span></a
+        >
+        <div class="footer-links">
+          <a href="../../index.html">Home</a><a href="brasil.html">Brasil</a
+          ><a href="../regioes/regioes.html">Regiões</a
+          ><a href="mundo.html">Mundo</a><a href="economia.html">Economia</a
+          ><a href="esportes.html">Esportes</a
+          ><a href="entretenimento.html">Entretenimento</a
+          ><a href="tecnologia.html">Tecnologia</a
+          ><a href="saude.html">Saúde</a>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>Projeto de estudo em HTML, CSS e JavaScript.</p>
+        <p>© 2026 Projeto demonstrativo</p>
+      </div>
+    </footer>
+    <script src="../../assets/js/auth.js"></script>
+    <script src="../../assets/js/category.js"></script>
+    <script src="../../assets/js/animacoes.js"></script>
+  </body>
+</html>

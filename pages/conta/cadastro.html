@@ -2,72 +2,356 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Cadastro — Portal de Notícias</title>
-    <link rel="stylesheet" href="../../assets/css/style.css" />
-    <link rel="stylesheet" href="../../assets/css/admin.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro — Correio Digital</title>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&family=Literata:opsz,wght@7..72,400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Favicon -->
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230C2B33'/%3E%3Ccircle cx='16' cy='20' r='9' fill='%23FFD21F'/%3E%3Crect y='20' width='32' height='12' fill='%230C2B33'/%3E%3Crect y='20' width='32' height='3' fill='%23F3FBFA'/%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23FFD200'/%3E%3C/svg%3E"
     />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../assets/css/style.css" />
     <link rel="stylesheet" href="../../assets/css/identidade.css" />
     <link rel="stylesheet" href="../../assets/css/animacoes.css" />
-    <script src="../../assets/js/edicao.js"></script>
+
+    <style>
+      .password-helper {
+        display: block;
+        font-size: 11px;
+        color: #708490;
+        margin-top: 6px;
+      }
+
+      .demo-notice-box {
+        margin-top: 20px;
+        background-color: #f1f8f7;
+        border-radius: 6px;
+        display: flex;
+        padding: 14px 18px;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .demo-notice-box p {
+        font-size: 12px;
+        color: #58797f;
+        margin: 0;
+      }
+
+      .login-links-footer {
+        border-top: 1px solid #e0efed;
+        margin-top: 30px;
+        padding-top: 20px;
+      }
+    </style>
   </head>
-  <body class="auth-page">
-    <main class="auth-shell">
-      <a class="back-link" href="../../index.html">← Voltar ao portal</a>
-      <section class="auth-card">
-        <div class="auth-brand">
-          <span class="brand-mark" aria-hidden="true"></span
-          ><span class="brand-word">correio<b>digital</b></span>
+  <body class="login-page-bg">
+    <a href="../../index.html" class="back-portal-link">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Voltar ao portal
+    </a>
+
+    <main class="login-wrapper">
+      <div class="login-container-card">
+        <!-- LEFT SIDE BANNER (DARK TEAL GRADIENT) -->
+        <div class="login-left-banner">
+          <div class="banner-top-brand">
+            <span class="yellow-sun-circle"></span>
+            <span class="brand-text-white"
+              >correio<b class="brand-cyan-text">digital</b></span
+            >
+          </div>
+
+          <div class="banner-body-text">
+            <h1>
+              Informa&ccedil;&atilde;o<br />que conecta<span class="yellow-dot"
+                >.</span
+              >
+            </h1>
+            <p>
+              Fa&ccedil;a parte e descubra<br />novas hist&oacute;rias todos os
+              dias.
+            </p>
+          </div>
+
+          <!-- Bottom Graphic Illustration -->
+          <div class="banner-illustration">
+            <svg
+              class="sun-behind-newspaper"
+              width="90"
+              height="90"
+              viewBox="0 0 100 100"
+            >
+              <circle cx="50" cy="50" r="45" fill="#FFD200" />
+            </svg>
+            <div class="newspaper-wire-card">
+              <div class="news-line-header">
+                <div class="news-img-placeholder">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#00d4bd"
+                    stroke-width="2"
+                  >
+                    <rect
+                      x="3"
+                      y="3"
+                      width="18"
+                      height="18"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                  </svg>
+                </div>
+                <div class="news-text-skeleton">
+                  <div class="sk-line long"></div>
+                  <div class="sk-line short"></div>
+                </div>
+              </div>
+              <div class="news-body-skeleton">
+                <div class="sk-line flex-full"></div>
+                <div class="sk-line flex-full"></div>
+                <div class="sk-line flex-70"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <h1>Criar conta</h1>
-        <p>Cadastro local para demonstração do projeto.</p>
-        <form id="registerForm">
-          <label>Nome<input id="name" required /></label
-          ><label>E-mail<input id="email" type="email" required /></label
-          ><label
-            >Senha<input
-              id="password"
-              type="password"
-              minlength="6"
-              required /></label
-          ><button class="primary-btn">Cadastrar</button>
-          <p id="msg" class="form-msg"></p>
-        </form>
-        <p class="auth-switch">
-          Já possui conta? <a href="login.html">Entrar</a>
-        </p>
-      </section>
+
+        <!-- RIGHT SIDE FORM PANEL -->
+        <div class="login-right-panel">
+          <div class="right-brand">
+            <span class="yellow-sun-circle"></span>
+            <span class="brand-text-navy"
+              >correio<b class="brand-teal-text">digital</b></span
+            >
+          </div>
+
+          <h2 class="form-title">Crie sua conta</h2>
+          <p class="form-subtitle">
+            Cadastre-se e acompanhe as not&iacute;cias de perto.
+          </p>
+
+          <form id="registerForm">
+            <!-- Name Field -->
+            <div class="input-group" style="margin-bottom: 12px">
+              <label for="name">Nome</label>
+              <div class="input-field-wrapper">
+                <svg
+                  class="input-icon"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="Seu nome completo"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="input-group" style="margin-bottom: 12px">
+              <label for="email">E-mail</label>
+              <div class="input-field-wrapper">
+                <svg
+                  class="input-icon"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  ></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="seuemail@exemplo.com"
+                  required
+                  autocomplete="email"
+                />
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="input-group" style="margin-bottom: 24px">
+              <label for="password">Senha</label>
+              <div class="input-field-wrapper">
+                <svg
+                  class="input-icon"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect
+                    x="3"
+                    y="11"
+                    width="18"
+                    height="11"
+                    rx="2"
+                    ry="2"
+                  ></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  minlength="8"
+                  required
+                />
+                <button
+                  type="button"
+                  class="password-toggle-btn"
+                  id="togglePasswordBtn"
+                  aria-label="Mostrar senha"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                    ></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
+              </div>
+              <span class="password-helper">Use pelo menos 8 caracteres.</span>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="login-submit-btn">
+              Criar conta
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+              >
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+
+            <p id="msg" class="form-msg-alert"></p>
+          </form>
+
+          <!-- Links Divider -->
+          <div class="login-links-footer">
+            <p>
+              J&aacute; possui conta?
+              <a href="login.html" class="bold-link">Entrar</a>
+            </p>
+          </div>
+
+          <!-- Test Credentials Box -->
+          <div class="demo-notice-box">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#007a87"
+              stroke-width="2"
+            >
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <p>Cadastro para demonstra&ccedil;&atilde;o do projeto.</p>
+          </div>
+        </div>
+      </div>
     </main>
+
+    <!-- Auth Script -->
     <script src="../../assets/js/auth.js"></script>
     <script>
+      const togglePasswordBtn = document.getElementById("togglePasswordBtn");
+      const passwordInput = document.getElementById("password");
+
+      if (togglePasswordBtn && passwordInput) {
+        togglePasswordBtn.addEventListener("click", () => {
+          const isPassword = passwordInput.type === "password";
+          passwordInput.type = isPassword ? "text" : "password";
+        });
+      }
+
       document.querySelector("#registerForm").onsubmit = (e) => {
         e.preventDefault();
-        const users = getUsers(),
-          mail = email.value.trim().toLowerCase();
+        const users = getUsers();
+        const emailInput = document.getElementById("email");
+        const nameInput = document.getElementById("name");
+        const msg = document.getElementById("msg");
+        const mail = emailInput.value.trim().toLowerCase();
+
         if (users.some((u) => u.email === mail)) {
           msg.textContent = "Este e-mail já está cadastrado.";
+          msg.style.display = "block";
           return;
         }
+
         users.push({
-          name: name.value.trim(),
+          name: nameInput.value.trim(),
           email: mail,
-          password: password.value,
+          password: passwordInput.value,
           role: "user",
         });
+
         localStorage.setItem(USERS_KEY, JSON.stringify(users));
         msg.textContent = "Cadastro realizado. Redirecionando...";
+        msg.style.display = "block";
+        msg.style.color = "#007a87"; // success color
+
         setTimeout(() => (location.href = "login.html"), 700);
       };
     </script>
-    <script src="../../assets/js/animacoes.js"></script>
   </body>
 </html>

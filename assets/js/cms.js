@@ -52,7 +52,6 @@
     totalImages: $("#totalImages"),
     totalPublished: $("#totalPublished"),
     newPost: $("#newPostBtn"),
-    navNewPost: $("#navNewPost"),
     navLogout: $("#navLogout"),
     search: $("#postSearch"),
     headerSearch: $("#headerAdminSearch"),
@@ -272,10 +271,6 @@
   });
 
   els.newPost.addEventListener("click", () => openModal());
-  els.navNewPost.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (getSession()?.role === "admin") openModal();
-  });
   els.navLogout.addEventListener("click", (e) => {
     e.preventDefault();
     if (getSession()?.role === "admin") logoutAdmin();

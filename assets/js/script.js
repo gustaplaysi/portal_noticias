@@ -31,8 +31,9 @@ sideMenu
   ?.querySelectorAll("a")
   .forEach((a) => a.addEventListener("click", closeSideMenu));
 function toggleSearch(show = true) {
+  if (!searchPanel) return;
   searchPanel.classList.toggle("show", show);
-  if (show) setTimeout(() => searchInput.focus(), 250);
+  if (show && searchInput) setTimeout(() => searchInput.focus(), 250);
 }
 searchBtn?.addEventListener("click", () => toggleSearch(true));
 searchClose?.addEventListener("click", () => toggleSearch(false));
@@ -51,15 +52,56 @@ searchForm?.addEventListener("submit", (e) => {
   searchForm.reset();
 });
 if (headerSearchInput) {
-  headerSearchInput.addEventListener("keydown", (e) => {
-    if (e.key !== "Enter") return;
+  const normalizeSearch = (value) =>
+    value
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim();
+
+  const runHeaderSearch = () => {
     const q = headerSearchInput.value.trim();
-    if (!q) return;
-    showToast(`Busca demonstrativa: “${q}”`);
+    const query = normalizeSearch(q);
+    const items = [
+      ...document.querySelectorAll(
+        "main article, main .card-destaque, main .news-card, main .category-card",
+      ),
+    ];
+    let matches = 0;
+
+    items.forEach((item) => {
+      const found = !query || normalizeSearch(item.textContent).includes(query);
+      item.style.display = found ? "" : "none";
+      if (found && query) matches += 1;
+    });
+
+    if (!query) return;
+    const first = items.find((item) => item.style.display !== "none");
+    if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+    showToast(
+      matches
+        ? `${matches} resultado${matches === 1 ? "" : "s"} encontrado${matches === 1 ? "" : "s"} para “${q}”`
+        : `Nenhum resultado encontrado para “${q}”`,
+    );
+  };
+
+  headerSearchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      runHeaderSearch();
+    } else if (e.key === "Escape") {
+      headerSearchInput.value = "";
+      runHeaderSearch();
+      headerSearchInput.blur();
+    }
+  });
+
+  headerSearchInput.addEventListener("input", () => {
+    if (!headerSearchInput.value.trim()) runHeaderSearch();
   });
 }
 
-const news = [
+const defaultNews = [
   [
     "23:42",
     "Brasil",
@@ -106,21 +148,40 @@ const news = [
     "Consumidores comparam mais preços antes de finalizar compras online",
   ],
 ];
+function getLatestNews() {
+  let cms = [];
+  try {
+    const parsed = JSON.parse(localStorage.getItem("newsDemoPosts") || "[]");
+    if (Array.isArray(parsed))
+      cms = parsed.filter((p) => p?.status === "published");
+  } catch (error) {
+    console.warn("Não foi possível carregar notícias do CMS.", error);
+  }
+  const cmsNews = cms.map((p) => [
+    "Agora",
+    p.category || "Notícias",
+    p.title || "Sem título",
+    p.image || "",
+    p.link || "#",
+  ]);
+  return [...cmsNews, ...defaultNews.map((n) => [...n, "", "#"])];
+}
 let visible = 5;
 const latestList = document.querySelector("#latestList");
 function renderLatest() {
   if (!latestList) return;
+  const news = getLatestNews();
   latestList.innerHTML = news
     .slice(0, visible)
     .map(
-      ([time, cat, title], i) =>
+      ([time, cat, title, image, link], i) =>
         `<article class="card-destaque">
           <div class="card-img-wrapper">
-            <img src="https://images.unsplash.com/photo-${1510000000000 + i * 10000}?auto=format&fit=crop&w=400&q=80" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=400&q=80'" alt="${cat}">
+            <img src="${image || `https://images.unsplash.com/photo-${1510000000000 + i * 10000}?auto=format&fit=crop&w=400&q=80`}" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=400&q=80'" alt="${cat}">
           </div>
           <div class="card-body">
             <span class="badge badge-cyan">${cat}</span>
-            <h3>${title}</h3>
+            <h3>${link !== "#" ? `<a href="${link}" target="_blank" rel="noopener noreferrer">${title}</a>` : title}</h3>
             <p>Confira os principais detalhes e entenda o contexto desta notícia demonstrativa.</p>
             <div class="gray-meta">
               <span>🕒 ${time} &nbsp;•&nbsp; Hoje</span>

@@ -1,165 +1,228 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="pt-BR">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="CMS administrativo do Correio Digital" name="description"/>
-<title>CMS — Correio Digital</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23FFD200'/%3E%3C/svg%3E" rel="icon"/>
-<link href="../../assets/css/style.css" rel="stylesheet"/>
-<link href="../../assets/css/identidade.css" rel="stylesheet"/>
-<link href="../../assets/css/admin.css" rel="stylesheet"/>
-<link href="../../assets/css/animacoes.css" rel="stylesheet"/>
-</head>
-<body class="admin-page">
-<div class="top-bar">
-<div class="container top-bar-inner">
-<div class="top-bar-left">
-<span>Área administrativa</span><strong>Correio Digital</strong>
-</div>
-<div class="top-bar-right">
-<a class="top-login" href="../../index.html">↗ Ver portal</a><span class="cms-secure">CMS</span>
-</div>
-</div>
-</div>
-<header class="site-header">
-<div class="container header-inner">
-<a aria-label="Correio Digital" class="brand" href="../../index.html">
-<span class="brand-circle"></span><span class="brand-text">correio<b>digital</b></span>
-</a>
-<div class="header-search cms-header-search">
-<svg class="search-icon" fill="none" height="18" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" width="18">
-<circle cx="11" cy="11" r="8"></circle>
-<line x1="21" x2="16.65" y1="21" y2="16.65"></line>
-</svg>
-<input autocomplete="off" id="headerAdminSearch" placeholder="Buscar notícias no CMS..." type="text"/>
-</div>
-<div class="header-actions">
-<a class="portal-link" href="../../index.html">Ver portal</a>
-</div>
-</div>
-<nav aria-label="Navegação do CMS" class="category-nav">
-<div class="container nav-scroll cms-nav">
-<a href="../../index.html">Início</a><a class="active" href="#conteudo">Notícias</a><a href="#estatisticas">Visão geral</a><a href="#" id="navLogout">Sair</a>
-</div>
-</nav>
-</header>
-<div class="auth-shell" id="adminLogin">
-<section class="auth-card">
-<div class="auth-kicker"><span></span> CMS ADMINISTRATIVO</div>
-<h1>Gerencie o conteúdo do <strong>Correio Digital</strong></h1>
-<p>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <meta content="CMS administrativo do Correio Digital" name="description" />
+    <title>CMS — Correio Digital</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23FFD200'/%3E%3C/svg%3E"
+      rel="icon"
+    />
+    <link href="../../assets/css/style.css" rel="stylesheet" />
+    <link href="../../assets/css/identidade.css" rel="stylesheet" />
+    <link href="../../assets/css/admin.css" rel="stylesheet" />
+    <link href="../../assets/css/animacoes.css" rel="stylesheet" />
+  </head>
+  <body class="admin-page">
+    <div class="top-bar">
+      <div class="container top-bar-inner">
+        <div class="top-bar-left">
+          <span>Área administrativa</span><strong>Correio Digital</strong>
+        </div>
+        <div class="top-bar-right">
+          <a class="top-login" href="../../index.html">↗ Ver portal</a
+          ><span class="cms-secure">CMS</span>
+        </div>
+      </div>
+    </div>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a aria-label="Correio Digital" class="brand" href="../../index.html">
+          <span class="brand-circle"></span
+          ><span class="brand-text">correio<b>digital</b></span>
+        </a>
+        <div class="header-search cms-header-search">
+          <svg
+            class="search-icon"
+            fill="none"
+            height="18"
+            stroke="currentColor"
+            stroke-width="2.2"
+            viewbox="0 0 24 24"
+            width="18"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+          </svg>
+          <input
+            autocomplete="off"
+            id="headerAdminSearch"
+            placeholder="Buscar notícias no CMS..."
+            type="text"
+          />
+        </div>
+        <div class="header-actions">
+          <a class="portal-link" href="../../index.html">Ver portal</a>
+        </div>
+      </div>
+      <nav aria-label="Navegação do CMS" class="category-nav">
+        <div class="container nav-scroll cms-nav">
+          <a href="../../index.html">Início</a
+          ><a class="active" href="#conteudo">Notícias</a
+          ><a href="#estatisticas">Visão geral</a
+          ><a href="#" id="navLogout">Sair</a>
+        </div>
+      </nav>
+    </header>
+    <div class="auth-shell" id="adminLogin">
+      <section class="auth-card">
+        <div class="auth-kicker"><span></span> CMS ADMINISTRATIVO</div>
+        <h1>Gerencie o conteúdo do <strong>Correio Digital</strong></h1>
+        <p>
           Entre para publicar, editar e organizar as notícias exibidas no
           portal.
         </p>
-<form id="adminLoginForm">
-<label>E-mail<input id="adminEmail" required="" type="email" value="admin@demo.com"/></label>
-<label>Senha<input id="adminPassword" required="" type="password" value="admin123"/></label>
-<button class="primary-btn">Entrar no CMS</button>
-<p class="form-msg" id="adminMsg"></p>
-</form>
-<div class="demo-credentials">
-<strong>Acesso de teste</strong><span>admin@demo.com  •  admin123</span>
-</div>
-</section>
-</div>
-<div class="cms hidden" id="cms">
-<main class="cms-main container">
-<section class="cms-welcome">
-<div>
-<span class="eyebrow">PAINEL ADMINISTRATIVO</span>
-<h1>Gerenciar notícias</h1>
-<p>
+        <form id="adminLoginForm">
+          <label
+            >E-mail<input
+              id="adminEmail"
+              required=""
+              type="email"
+              value="admin@demo.com"
+          /></label>
+          <label
+            >Senha<input
+              id="adminPassword"
+              required=""
+              type="password"
+              value="admin123"
+          /></label>
+          <button class="primary-btn">Entrar no CMS</button>
+          <p class="form-msg" id="adminMsg"></p>
+        </form>
+        <div class="demo-credentials">
+          <strong>Acesso de teste</strong
+          ><span>admin@demo.com  •  admin123</span>
+        </div>
+      </section>
+    </div>
+    <div class="cms hidden" id="cms">
+      <main class="cms-main container">
+        <section class="cms-welcome">
+          <div>
+            <span class="eyebrow">PAINEL ADMINISTRATIVO</span>
+            <h1>Gerenciar notícias</h1>
+            <p>
               Crie, edite e acompanhe o conteúdo publicado no Correio Digital.
             </p>
-</div>
-<button class="primary-btn" id="newPostBtn">+ Nova notícia</button>
-</section>
-<section class="cms-stats" id="estatisticas">
-<article>
-<div class="stat-icon">▤</div>
-<div><b id="totalPosts">0</b><span>Notícias cadastradas</span></div>
-</article>
-<article>
-<div class="stat-icon">▧</div>
-<div><b id="totalImages">0</b><span>Com imagem</span></div>
-</article>
-<article>
-<div class="stat-icon">✓</div>
-<div><b id="totalPublished">0</b><span>Publicadas</span></div>
-</article>
-</section>
-<section class="cms-panel" id="conteudo">
-<div class="panel-head">
-<div class="section-title-wrapper">
-<span class="section-pill-bar"></span>
-<div>
-<h2>Conteúdo</h2>
-<p>Últimas notícias cadastradas no sistema.</p>
-</div>
-</div>
-<div class="panel-search">
-<svg fill="none" height="17" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="17">
-<circle cx="11" cy="11" r="8"></circle>
-<line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg><input id="postSearch" placeholder="Buscar notícia..."/>
-</div>
-</div>
-<div class="post-list" id="postList"></div>
-</section>
-</main>
-</div>
-<div class="modal hidden" id="postModal">
-<div class="modal-card">
-<div class="modal-head">
-<div>
-<span class="eyebrow">CONTEÚDO</span>
-<h2 id="modalTitle">Nova notícia</h2>
-</div>
-<button aria-label="Fechar" id="closeModal">×</button>
-</div>
-<form id="postForm">
-<input id="postId" type="hidden"/>
-<div class="form-grid">
-<label class="span-2">Título<input id="postTitle" required=""/></label>
-<label>Categoria<select id="postCategory">
-<option>Brasil</option>
-<option>Norte</option>
-<option>Nordeste</option>
-<option>Centro-Oeste</option>
-<option>Sudeste</option>
-<option>Sul</option>
-<option>Economia</option>
-<option>Internacional</option>
-<option>Saúde</option>
-<option>Tecnologia</option>
-<option>Esportes</option>
-<option>Entretenimento</option>
-</select></label>
-<label>Status<select id="postStatus">
-<option value="published">Publicada</option>
-<option value="draft">Rascunho</option>
-</select></label>
-<label class="span-2">Resumo<textarea id="postExcerpt" rows="3"></textarea>
-</label>
-<label class="span-2">URL da imagem<input id="postImage" placeholder="https://exemplo.com/imagem.jpg" type="url"/></label>
-<label class="span-2">Link da notícia<input id="postLink" placeholder="https://exemplo.com/noticia" type="url"/></label>
-</div>
-<div class="image-preview" id="imagePreview">
-<span>Prévia da imagem</span>
-</div>
-<div class="modal-actions">
-<button class="secondary-btn" id="cancelModal" type="button">
-              Cancelar</button><button class="primary-btn">Salvar notícia</button>
-</div>
-</form>
-</div>
-</div>
-<script src="../../assets/js/auth.js"></script>
-<script src="../../assets/js/cms.js"></script>
-<script src="../../assets/js/animacoes.js"></script>
-</body>
+          </div>
+          <button class="primary-btn" id="newPostBtn">+ Nova notícia</button>
+        </section>
+        <section class="cms-stats" id="estatisticas">
+          <article>
+            <div class="stat-icon">▤</div>
+            <div><b id="totalPosts">0</b><span>Notícias cadastradas</span></div>
+          </article>
+          <article>
+            <div class="stat-icon">▧</div>
+            <div><b id="totalImages">0</b><span>Com imagem</span></div>
+          </article>
+          <article>
+            <div class="stat-icon">✓</div>
+            <div><b id="totalPublished">0</b><span>Publicadas</span></div>
+          </article>
+        </section>
+        <section class="cms-panel" id="conteudo">
+          <div class="panel-head">
+            <div class="section-title-wrapper">
+              <span class="section-pill-bar"></span>
+              <div>
+                <h2>Conteúdo</h2>
+                <p>Últimas notícias cadastradas no sistema.</p>
+              </div>
+            </div>
+            <div class="panel-search">
+              <svg
+                fill="none"
+                height="17"
+                stroke="currentColor"
+                stroke-width="2"
+                viewbox="0 0 24 24"
+                width="17"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg
+              ><input id="postSearch" placeholder="Buscar notícia..." />
+            </div>
+          </div>
+          <div class="post-list" id="postList"></div>
+        </section>
+      </main>
+    </div>
+    <div class="modal hidden" id="postModal">
+      <div class="modal-card">
+        <div class="modal-head">
+          <div>
+            <span class="eyebrow">CONTEÚDO</span>
+            <h2 id="modalTitle">Nova notícia</h2>
+          </div>
+          <button aria-label="Fechar" id="closeModal">×</button>
+        </div>
+        <form id="postForm">
+          <input id="postId" type="hidden" />
+          <div class="form-grid">
+            <label class="span-2"
+              >Título<input id="postTitle" required=""
+            /></label>
+            <label
+              >Categoria<select id="postCategory">
+                <option>Brasil</option>
+                <option>Norte</option>
+                <option>Nordeste</option>
+                <option>Centro-Oeste</option>
+                <option>Sudeste</option>
+                <option>Sul</option>
+                <option>Economia</option>
+                <option>Internacional</option>
+                <option>Saúde</option>
+                <option>Tecnologia</option>
+                <option>Esportes</option>
+                <option>Entretenimento</option>
+              </select></label
+            >
+            <label
+              >Status<select id="postStatus">
+                <option value="published">Publicada</option>
+                <option value="draft">Rascunho</option>
+              </select></label
+            >
+            <label class="span-2"
+              >Resumo<textarea id="postExcerpt" rows="3"></textarea>
+            </label>
+            <label class="span-2"
+              >URL da imagem<input
+                id="postImage"
+                placeholder="https://exemplo.com/imagem.jpg"
+                type="url"
+            /></label>
+            <label class="span-2"
+              >Link da notícia<input
+                id="postLink"
+                placeholder="https://exemplo.com/noticia"
+                type="url"
+            /></label>
+          </div>
+          <div class="image-preview" id="imagePreview">
+            <span>Prévia da imagem</span>
+          </div>
+          <div class="modal-actions">
+            <button class="secondary-btn" id="cancelModal" type="button">
+              Cancelar</button
+            ><button class="primary-btn">Salvar notícia</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="../../assets/js/auth.js"></script>
+    <script src="../../assets/js/cms.js"></script>
+    <script src="../../assets/js/animacoes.js"></script>
+  </body>
 </html>

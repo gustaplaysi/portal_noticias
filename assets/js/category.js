@@ -206,8 +206,15 @@ const CATEGORY_DATA = {
 };
 const cat = document.body.dataset.category;
 const cmsCat = cat === "Mundo" ? "Internacional" : cat;
-const stored = JSON.parse(localStorage.getItem("newsDemoPosts") || "[]").filter(
-  (p) => p.status === "published" && p.category === cmsCat,
+let savedPosts = [];
+try {
+  const parsed = JSON.parse(localStorage.getItem("newsDemoPosts") || "[]");
+  savedPosts = Array.isArray(parsed) ? parsed : [];
+} catch (error) {
+  console.warn("Notícias salvas inválidas; usando conteúdo padrão.", error);
+}
+const stored = savedPosts.filter(
+  (p) => p && p.status === "published" && p.category === cmsCat,
 );
 const fallback = (CATEGORY_DATA[cat] || []).map((x, i) => ({
   id: "f" + i,
@@ -230,40 +237,50 @@ function card(p, hero = false) {
   const href = p.link || "#";
   return `<article class="${hero ? "category-hero" : "news-card category-card"}"><a href="${esc(href)}" ${href !== "#" ? 'target="_blank" rel="noopener"' : ""}><img src="${esc(p.image || "https://placehold.co/900x520?text=Noticia")}" alt="${esc(p.title)}"><div class="${hero ? "category-hero-copy" : ""}"><span class="eyebrow">${esc(cat.toUpperCase())}</span><h${hero ? "1" : "3"}>${esc(p.title)}</h${hero ? "1" : "3"}><p>${esc(p.excerpt || "Confira os detalhes desta notícia.")}</p></div></a></article>`;
 }
-document.querySelector("#categoryHero").innerHTML = card(
-  posts[0] || fallback[0],
-  true,
-);
-document.querySelector("#categoryGrid").innerHTML = posts
-  .slice(1)
-  .concat(stored.length < 4 ? fallback.slice(Math.max(1, stored.length)) : [])
-  .slice(0, 6)
-  .map((p) => card(p))
-  .join("");
-document.querySelector("#categoryLatest").innerHTML = posts
-  .concat(fallback)
-  .slice(0, 8)
-  .map(
-    (p, i) =>
-      `<article class="latest-item"><img class="latest-real-thumb" src="${esc(p.image)}" alt=""><div><time>Agora • ${esc(cat)}</time><h3><a href="${esc(p.link || "#")}">${esc(p.title)}</a></h3><p>${esc(p.excerpt || "")}</p></div></article>`,
-  )
-  .join("");
+const heroEl = document.querySelector("#categoryHero");
+const gridEl = document.querySelector("#categoryGrid");
+const latestEl = document.querySelector("#categoryLatest");
+if (heroEl && (posts[0] || fallback[0]))
+  heroEl.innerHTML = card(posts[0] || fallback[0], true);
+if (gridEl)
+  gridEl.innerHTML = posts
+    .slice(1)
+    .concat(stored.length < 4 ? fallback.slice(Math.max(1, stored.length)) : [])
+    .slice(0, 6)
+    .map((p) => card(p))
+    .join("");
+if (latestEl)
+  latestEl.innerHTML = posts
+    .concat(fallback)
+    .slice(0, 8)
+    .map(
+      (p, i) =>
+        `<article class="latest-item"><img class="latest-real-thumb" src="${esc(p.image)}" alt=""><div><time>Agora • ${esc(cat)}</time><h3><a href="${esc(p.link || "#")}">${esc(p.title)}</a></h3><p>${esc(p.excerpt || "")}</p></div></article>`,
+    )
+    .join("");
 const menuBtn = document.querySelector("#menuBtn"),
   sideMenu = document.querySelector("#sideMenu"),
   overlay = document.querySelector("#overlay"),
   closeMenu = document.querySelector("#closeMenu");
 function closeNav() {
-  sideMenu.classList.remove("open");
-  overlay.classList.remove("show");
+  sideMenu?.classList.remove("open");
+  overlay?.classList.remove("show");
+  sideMenu?.setAttribute("aria-hidden", "true");
+  menuBtn?.setAttribute("aria-expanded", "false");
   document.body.style.overflow = "";
 }
-menuBtn.onclick = () => {
-  sideMenu.classList.add("open");
-  overlay.classList.add("show");
+menuBtn?.addEventListener("click", () => {
+  sideMenu?.classList.add("open");
+  overlay?.classList.add("show");
+  sideMenu?.setAttribute("aria-hidden", "false");
+  menuBtn.setAttribute("aria-expanded", "true");
   document.body.style.overflow = "hidden";
-};
-closeMenu.onclick = closeNav;
-overlay.onclick = closeNav;
+});
+closeMenu?.addEventListener("click", closeNav);
+overlay?.addEventListener("click", closeNav);
+sideMenu
+  ?.querySelectorAll("a")
+  .forEach((a) => a.addEventListener("click", closeNav));
 const loginLink = document.querySelector("#loginLink");
 if (loginLink && typeof getSession === "function") {
   const s = getSession();
@@ -276,3 +293,89 @@ if (loginLink && typeof getSession === "function") {
     };
   }
 }
+
+// Busca do cabeçalho: pesquisa o conteúdo visível da página.
+(() => {
+  const input = document.querySelector("#headerSearchInput");
+  if (!input) return;
+
+  const normalize = (value) =>
+    value
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim();
+
+  const searchable = [
+    ...document.querySelectorAll(
+      "main article, main .card-destaque, main .news-card, main .category-card",
+    ),
+  ];
+
+  const runSearch = () => {
+    const query = normalize(input.value);
+    let matches = 0;
+
+    searchable.forEach((item) => {
+      const found = !query || normalize(item.textContent).includes(query);
+      item.style.display = found ? "" : "none";
+      if (found && query) matches += 1;
+    });
+
+    if (!query) return;
+    const first = searchable.find((item) => item.style.display !== "none");
+    if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    const toast = document.querySelector("#toast");
+    if (toast) {
+      toast.textContent = matches
+        ? `${matches} resultado${matches === 1 ? "" : "s"} encontrado${matches === 1 ? "" : "s"} para “${input.value.trim()}”`
+        : `Nenhum resultado encontrado para “${input.value.trim()}”`;
+      toast.classList.add("show");
+      clearTimeout(runSearch.timer);
+      runSearch.timer = setTimeout(() => toast.classList.remove("show"), 3200);
+    }
+  };
+
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      runSearch();
+    }
+    if (event.key === "Escape") {
+      input.value = "";
+      runSearch();
+      input.blur();
+    }
+  });
+
+  input.addEventListener("input", () => {
+    if (!input.value.trim()) runSearch();
+  });
+})();
+
+// Painel de busca e acessibilidade do menu nas páginas de categoria.
+(() => {
+  const panel = document.querySelector("#searchPanel");
+  const form = document.querySelector("#searchForm");
+  const modalInput = document.querySelector("#searchInput");
+  const close = document.querySelector("#searchClose");
+  const header = document.querySelector("#headerSearchInput");
+  if (form && modalInput && header) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      header.value = modalInput.value;
+      header.dispatchEvent(
+        new KeyboardEvent("keydown", { key: "Enter", bubbles: true }),
+      );
+      panel?.classList.remove("show");
+    });
+  }
+  close?.addEventListener("click", () => panel?.classList.remove("show"));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeNav();
+      panel?.classList.remove("show");
+    }
+  });
+})();

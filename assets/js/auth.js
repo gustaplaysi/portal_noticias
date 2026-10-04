@@ -1,26 +1,55 @@
 const USERS_KEY = "newsDemoUsers";
 const SESSION_KEY = "newsDemoSession";
+
+function readJSON(key, fallback) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || "null");
+    return value ?? fallback;
+  } catch (error) {
+    console.warn(
+      `Dados locais inválidos em ${key}; usando valor padrão.`,
+      error,
+    );
+    return fallback;
+  }
+}
+function writeJSON(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch (error) {
+    console.error(`Não foi possível salvar ${key}.`, error);
+    return false;
+  }
+}
 function getUsers() {
-  const saved = JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
-  if (!saved.length) {
-    saved.push({
+  const saved = readJSON(USERS_KEY, []);
+  const users = Array.isArray(saved) ? saved : [];
+  if (!users.some((u) => u?.email === "usuario@demo.com")) {
+    users.push({
       name: "Usuário Demo",
       email: "usuario@demo.com",
       password: "123456",
       role: "user",
     });
-    localStorage.setItem(USERS_KEY, JSON.stringify(saved));
+    writeJSON(USERS_KEY, users);
   }
-  return saved;
+  return users;
+}
+function saveUsers(users) {
+  return writeJSON(USERS_KEY, users);
 }
 function setSession(user) {
-  localStorage.setItem(
-    SESSION_KEY,
-    JSON.stringify({ name: user.name, email: user.email, role: user.role }),
-  );
+  return writeJSON(SESSION_KEY, {
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    createdAt: Date.now(),
+  });
 }
 function getSession() {
-  return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+  const session = readJSON(SESSION_KEY, null);
+  return session && typeof session === "object" ? session : null;
 }
 function logout() {
   localStorage.removeItem(SESSION_KEY);
@@ -28,17 +57,17 @@ function logout() {
   location.href = inPages ? "../../index.html" : "index.html";
 }
 
-// Mantém a data do topo atualizada em todas as páginas que possuem #topDate.
 document.addEventListener("DOMContentLoaded", () => {
   const topDate = document.getElementById("topDate");
-  if (!topDate) return;
-  const now = new Date();
-  const formatted = new Intl.DateTimeFormat("pt-BR", {
-    timeZone: "America/Fortaleza",
-    weekday: "long",
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  }).format(now);
-  topDate.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+  if (topDate) {
+    const formatted = new Intl.DateTimeFormat("pt-BR", {
+      timeZone: "America/Fortaleza",
+      weekday: "long",
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }).format(new Date());
+    topDate.textContent =
+      formatted.charAt(0).toUpperCase() + formatted.slice(1);
+  }
 });

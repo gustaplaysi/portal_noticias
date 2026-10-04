@@ -345,7 +345,7 @@
           role: "user",
         });
 
-        localStorage.setItem(USERS_KEY, JSON.stringify(users));
+        saveUsers(users);
         msg.textContent = "Cadastro realizado. Redirecionando...";
         msg.style.display = "block";
         msg.style.color = "#007a87"; // success color
